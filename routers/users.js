@@ -68,6 +68,7 @@ router.post('/register', async (req,res)=>{
         email:req.body.email,
         passwordHash:bcrypt.hashSync(req.body.passwordHash,10),
         phone:req.body.phone,
+        isAdmin:req.body.isAdmin,
         street:req.body.street,
         apartment:req.body.apartment,
         zip:req.body.zip,
@@ -78,8 +79,7 @@ router.post('/register', async (req,res)=>{
     if(!newuser){
         return res.status(404).send('the user cant be created')
     }
-    res.status(200);
-    res.redirect('/api/v1/user/login');
+    res.status(200).json({user:newuser.name});
 })
 router.get('/',async (req,res)=>{
     const user =await User.find();

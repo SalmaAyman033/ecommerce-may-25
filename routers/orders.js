@@ -63,6 +63,8 @@ router.get('/', async (req, res) =>{
 router.post('/', async (req,res)=>{
     let order = new Order({
         orderItems: req.body.orderItems,
+        orderItemsQ: req.body.orderItemsQ,
+        orderItemsP: req.body.orderItemsP,
         shippingAddress1: req.body.shippingAddress1,
         shippingAddress2: req.body.shippingAddress2,
         city: req.body.city,

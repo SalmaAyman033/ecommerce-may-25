@@ -81,7 +81,7 @@ app.get('/api/v1',async (req,res)=>{
 
 
 // connecting to the database and running the appliction.
-mongoose.connect('mongodb+srv://salmamelbanna:salma22281533@cluster0.kfowmi1.mongodb.net/eshop-database?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb+srv://salma:salmasalma@cluster0.nf2x0sv.mongodb.net/shopping-cart?retryWrites=true&w=majority&appName=Cluster0')
 .then(()=>{
     app.listen(4000,()=>{
         console.log('http://localhost:4000/api/v1');

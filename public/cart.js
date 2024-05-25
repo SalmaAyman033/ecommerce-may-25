@@ -157,8 +157,18 @@ get_ordersItems_from_api()  //Getting orderItems data from the database.
         //console.log(usersresult)
         //console.log(result)
         let ls = [];
+        let ls2 = [];
+        let ls3 = [];
+        //result.orderItems[item]['quantity']
+        console.log(result)
         Object.keys(result.orderItems).forEach(item => {
             ls=[...ls,item]
+        })
+        Object.keys(result.orderItems).forEach(item => {
+            ls2=[...ls2,result.orderItems[item]['quantity']]
+        })
+        Object.keys(result.orderItems).forEach(item => {
+            ls3=[...ls3,result.orderItems[item]['price']]
         })
         Object.keys(result.orderItems).forEach(item => {
             total+=(result.orderItems[item]['quantity'])*(result.orderItems[item]['price'])
@@ -168,6 +178,8 @@ get_ordersItems_from_api()  //Getting orderItems data from the database.
 
         data = {
             "orderItems":ls,
+            "orderItemsQ":ls2,
+            "orderItemsP":ls3,
             "shippingAddress1":usersresult.city,
             "shippingAddress2": usersresult.street,
             "city": usersresult.city,

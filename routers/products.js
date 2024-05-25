@@ -24,6 +24,14 @@ router.get('/s',async (req,res)=>{
     //res.render('index', { products, CategoryList });
     res.status(200).json({products});
 })
+//
+router.get('/m',async (req,res)=>{
+    const CategoryList =await Category.find().select('name');
+    if(! CategoryList){
+        res.status(500).json({success:false})
+    }
+    res.status(200).json({CategoryList});
+})
 // getting one product
 router.get('/:id',async (req,res)=>{
     const product =await Product.findById(req.params.id).select('name image description price');

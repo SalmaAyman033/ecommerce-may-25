@@ -1,6 +1,40 @@
 let cartsProducts = document.querySelector(".carts-products");
 let productsNumber = document.querySelector(".products-number");
 let products;
+let cate;
+//
+function filter(catname){
+    let product = (products.products).map((item)=>{
+        if(item.name===catname){
+            return`
+            <article class="card ">
+            <a href="./pages/product-details.html"><img width=266px src="${item.image}" alt=""></a>
+    
+            <div style="width: 266px;" class="content">
+    
+                <h1 class="title">${item.name}</h1>
+                <p class="desc">
+                    ${item.description}
+                </p>
+    
+                <div class="flex" style="justify-content: space-between; padding-bottom: 0.7rem">
+    
+                    <div class="price">${item.price}</div>
+                    <button class="add-to-cart"  onclick="cartoo('${item.id.replace(/'/g, "\\'")}')" ><i class="fa-solid fa-cart-plus"></i>Add to cart</button>
+    
+                </div>
+            </div>
+    
+        </article>
+    
+            `
+        }
+    })
+    document.querySelector("#productss").innerHTML = product;
+    
+
+
+}
 // function to fetch the products data from Api.
 let get_data_from_api = async()=>{
     let res = await fetch("/api/v1/products/s",{
@@ -10,6 +44,14 @@ let get_data_from_api = async()=>{
     return res;
 };
 
+// function to fetch the categories data from Api.
+let get_cate_from_api = async()=>{
+    let res = await fetch("/api/v1/products/m",{
+        method:"GET",
+    }).then((res)=>res.json());
+    cate = res;
+    return res;
+};
 
 
 
@@ -119,12 +161,28 @@ async function cartoo(id) {
     
 }
 
+//console.log(cate.CategoryList)
 
 
 
-
-get_data_from_api().then((products) => {
+get_data_from_api().then(get_cate_from_api()).then((products) => {
+    function drawcate(){
+        console.log(cate)
+        
+        let category = (cate.CategoryList).map((item)=>{
+            return`
+            <article class="card ">
+                <button onclick="filter(${item.name.replace(/'/g, "\\'")})">${item.name}</button>
+            </article>
+    
+            `
+        })
+        document.querySelector("#cat").innerHTML = category;
+    }
+    drawcate();
     function draw(){
+        console.log(cate)
+
         let product = (products.products).map((item)=>{
             return`
             <article class="card ">
@@ -152,6 +210,10 @@ get_data_from_api().then((products) => {
         document.querySelector("#productss").innerHTML = product;
     }
     draw();
+}).then(()=>{
+    filter(man)
+
+
 })
 
 
